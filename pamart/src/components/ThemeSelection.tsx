@@ -8,57 +8,111 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-import type { SelectChangeEvent } from "@mui/material/Select";
+import type { SelectChangeEvent } from "@mui/material";
 
-interface ThemeSelectionProps {
-  themes: string[];
-  onThemeSelect: (theme: string) => void;
-}
-
-const ThemeSelection: React.FC<ThemeSelectionProps> = ({
-  themes,
-  onThemeSelect,
-}) => {
+const ThemeSelectionPage: React.FC = () => {
   const [selectedTheme, setSelectedTheme] = useState("");
 
-  // Note que aqui usamos o tipo SelectChangeEvent<string>
   const handleChange = (event: SelectChangeEvent<string>) => {
-    setSelectedTheme(event.target.value); // O valor já será do tipo string
+    setSelectedTheme(event.target.value);
   };
 
   const handleNext = () => {
     if (selectedTheme) {
-      onThemeSelect(selectedTheme);
+      console.log("Tema selecionado:", selectedTheme);
     }
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
-      <Typography variant="h4" gutterBottom>
-        Bem-vindo à [Nome da Empresa] 🎉
+    <Box
+      sx={{
+        height: "100vh",
+        backgroundColor: "#f1e3dd", // Rosa claro para o fundo
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 3, // Espaçamento entre os elementos
+        padding: 2,
+      }}
+    >
+      {/* Nome da empresa estilizado */}
+      <Typography
+        variant="h1"
+        sx={{
+          fontFamily: "Migra, serif", 
+          fontWeight: "bold",
+          color: "#000000", 
+          textAlign: "center",
+          fontSize: "4rem",  
+        }}
+      >
+        Pam Art
       </Typography>
-      <Typography variant="subtitle1" gutterBottom>
+
+      {/* Texto de instrução */}
+      <Typography
+        variant="subtitle1"
+        sx={{
+          fontSize: "1.2rem",
+          color: "#4A4A4A", // Cinza escuro
+          textAlign: "center",
+        }}
+      >
         Comece seu orçamento escolhendo o tema
       </Typography>
-      <FormControl style={{ minWidth: 200, margin: "20px 0" }}>
+
+      {/* Input de seleção de tema */}
+      <FormControl
+        sx={{
+          minWidth: 300,
+          backgroundColor: "#FFFFFF", // Branco
+          borderRadius: 1,
+          border: `2px solid #FF69B4`, // Borda rosa claro
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#EFC9B6", // Borda rosa
+          },
+        }}
+      >
         <InputLabel id="theme-select-label">Escolha o tema</InputLabel>
         <Select
           labelId="theme-select-label"
           value={selectedTheme}
-          onChange={handleChange} // Corrigido para usar SelectChangeEvent
+          onChange={handleChange}
+          sx={{
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#EFC9B6", // Borda rosa
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#EFC9B6", // Borda rosa no hover
+            },
+          }}
         >
-          {themes.map((theme, index) => (
-            <MenuItem key={index} value={theme}>
-              {theme}
-            </MenuItem>
-          ))}
+          <MenuItem value="Tema 1">Tema 1</MenuItem>
+          <MenuItem value="Tema 2">Tema 2</MenuItem>
+          <MenuItem value="Tema 3">Tema 3</MenuItem>
         </Select>
       </FormControl>
+
+      {/* Botão de avançar */}
       <Button
         variant="contained"
-        color="primary"
         onClick={handleNext}
         disabled={!selectedTheme}
+        sx={{
+          backgroundColor: "#FF69B4", 
+          color: "#000000", // Preto
+          "&:hover": {
+            backgroundColor: "#f1e3dd", 
+          },
+          "&:disabled": {
+            backgroundColor: "#FF69B4", 
+            color: "#A9A9A9", 
+          },
+          paddingX: 4,
+          paddingY: 1.5,
+          borderRadius: 2,
+        }}
       >
         Avançar
       </Button>
@@ -66,4 +120,4 @@ const ThemeSelection: React.FC<ThemeSelectionProps> = ({
   );
 };
 
-export default ThemeSelection;
+export default ThemeSelectionPage;

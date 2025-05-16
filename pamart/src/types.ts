@@ -3,7 +3,7 @@ export interface PartyItem {
   name: string;
   description: string;
   price: number;
-  image: string; // URL da imagem
+  image: string;
 }
 
 export interface SelectedItem {
