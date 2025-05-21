@@ -6,29 +6,149 @@ import {
   TextField,
   Autocomplete,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // Importe o hook
-import BackgroundAnimations from "../components/BackgroundAnimations"; // Importa o fundo animado
+import { useNavigate } from "react-router-dom";
+import BackgroundAnimations from "../components/BackgroundAnimations";
+import { useThemeContext } from "../context/ThemeContext";
+
+const themeGroups = [
+  {
+    category: "Clássicos Infantis",
+    themes: [
+      "Turma da Mônica",
+      "Mickey e Minnie",
+      "Patati Patatá",
+      "Galinha Pintadinha",
+      "Ursinho Pooh",
+      "Backyardigans",
+      "Dora, a Aventureira",
+      "Bob Esponja",
+      "Baby Shark",
+      "Mundo Bita",
+    ],
+  },
+  {
+    category: "Contos & Magia",
+    themes: [
+      "Fadas",
+      "Unicórnios",
+      "Sereias",
+      "Princesas da Disney",
+      "Castelo Encantado",
+      "Peter Pan e Sininho",
+      "Frozen",
+      "Encanto",
+      "Moana",
+      "Alice no País das Maravilhas",
+    ],
+  },
+  {
+    category: "Aventura & Ação",
+    themes: [
+      "Carros (Disney)",
+      "Hot Wheels",
+      "Dinossauros",
+      "Super-Heróis (Marvel / DC)",
+      "Vingadores",
+      "Homem-Aranha",
+      "Batman",
+      "Power Rangers",
+      "Transformers",
+      "Toy Story",
+    ],
+  },
+  {
+    category: "Animais & Natureza",
+    themes: [
+      "Safari",
+      "Zoológico",
+      "Fazenda",
+      "Floresta",
+      "Fundo do Mar",
+      "Arca de Noé",
+      "Piquenique no parque",
+    ],
+  },
+  {
+    category: "Aniversários & Idades",
+    themes: [
+      "1 ano",
+      "15 anos",
+      "18 anos",
+      "30, 40, 50 anos",
+    ],
+  },
+  {
+    category: "Chás & Pré-festas",
+    themes: [
+      "Chá de bebê",
+      "Chá revelação",
+      "Chá de fraldas",
+      "Chá de panela",
+      "Chá bar/Chá rifa",
+    ],
+  },
+  {
+    category: "Casamento & Noivado",
+    themes: [
+      "Noivado",
+      "Casamento",
+      "Casamento tropical",
+      "Casamento clássico branco",
+      "Festa do sim (pré-casamento)",
+    ],
+  },
+  {
+    category: "TEMÁTICAS VARIADAS & PERSONALIZADAS",
+    themes: [],
+  },
+  {
+    category: "Ícones da Cultura Pop",
+    themes: [
+      "Barbie",
+      "Ana Castela",
+      "Luan Santana",
+      "Harry Potter",
+      "Star Wars",
+      "Stranger Things",
+      "Lilo & Stitch",
+      "Pokémon",
+      "Minecraft",
+      "Roblox",
+    ],
+  },
+  {
+    category: "Música & Estilos",
+    themes: [
+      "Country",
+      "Sertanejo universitário",
+      "Festa junina",
+      "K-pop",
+      "Rock’n’Roll",
+      "Funk anos 2000",
+      "Festa neon",
+      "Anos 80 / 90 / 2000",
+    ],
+  },
+];
+
+// Monta um array com todos os temas e suas categorias
+const allThemes: { category: string; theme: string }[] =
+  themeGroups.flatMap(group =>
+    group.themes.map(theme => ({
+      category: group.category,
+      theme,
+    }))
+  );
 
 const ThemeSelectionPage: React.FC = () => {
-  const [selectedTheme, setSelectedTheme] = useState<string | null>(null); // Estado para o tema selecionado
-  const navigate = useNavigate(); // Inicialize o hook aqui, dentro do componente funcional
+  const { setSelectedTheme } = useThemeContext();
+  const [localTheme, setLocalTheme] = useState<{ category: string; theme: string } | null>(null);
+  const navigate = useNavigate();
 
-  // Lista de temas
-  const themes = [
-    "Tema Tropical",
-    "Tema Clássico",
-    "Tema Infantil",
-    "Tema Moderno",
-    "Tema Vintage",
-    "Tema Minimalista",
-    "Tema Futurista",
-  ];
-
-  // Função para avançar
   const handleNext = () => {
-    if (selectedTheme) {
-      console.log("Tema selecionado:", selectedTheme);
-      navigate("/home"); // Redirecione para a rota desejada
+    if (localTheme) {
+      setSelectedTheme(localTheme.theme);
+      navigate("/home");
     } else {
       console.error("Nenhum tema foi selecionado!");
     }
@@ -78,13 +198,15 @@ const ThemeSelectionPage: React.FC = () => {
             fontWeight: "bold",
           }}
         >
-          Comece seu orçamento escolhendo o tema
+          Comece seu orçamento escolhendo o tema:
         </Typography>
 
         <Autocomplete
-          options={themes}
-          value={selectedTheme}
-          onChange={(event, newValue) => setSelectedTheme(newValue)}
+          options={allThemes}
+          groupBy={(option) => option.category}
+          getOptionLabel={(option) => option.theme}
+          value={localTheme}
+          onChange={(event, newValue) => setLocalTheme(newValue)}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -94,17 +216,18 @@ const ThemeSelectionPage: React.FC = () => {
                 backgroundColor: "#FFFFFF",
                 borderRadius: 1,
                 "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#EFC9B6",
+                  borderColor: "#FF69B4",
                 },
               }}
             />
           )}
+          isOptionEqualToValue={(option, value) => option.theme === value.theme}
         />
 
         <Button
           variant="contained"
           onClick={handleNext}
-          disabled={!selectedTheme}
+          disabled={!localTheme}
           sx={{
             backgroundColor: "#FF69B4",
             color: "#000000",

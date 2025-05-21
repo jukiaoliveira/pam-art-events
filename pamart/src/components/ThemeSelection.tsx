@@ -26,25 +26,27 @@ const ThemeSelectionPage: React.FC = () => {
   return (
     <Box
       sx={{
-        height: "100vh",
-        backgroundColor: "#f1e3dd", // Rosa claro para o fundo
+        backgroundColor: "#f1e3dd",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        gap: 3, // Espaçamento entre os elementos
-        padding: 2,
+        justifyContent: "flex-start",
+        gap: 3,
+        pt: { xs: 3, sm: 6 },
+        px: 2,
+        overflowY: "auto",
       }}
     >
       {/* Nome da empresa estilizado */}
       <Typography
         variant="h1"
         sx={{
-          fontFamily: "Migra, serif", 
+          fontFamily: "Migra, serif",
           fontWeight: "bold",
-          color: "#000000", 
+          color: "#000000",
           textAlign: "center",
-          fontSize: "4rem",  
+          fontSize: { xs: "2.2rem", sm: "4rem" },
         }}
       >
         Pam Art
@@ -54,8 +56,8 @@ const ThemeSelectionPage: React.FC = () => {
       <Typography
         variant="subtitle1"
         sx={{
-          fontSize: "1.2rem",
-          color: "#4A4A4A", // Cinza escuro
+          fontSize: { xs: "1rem", sm: "1.2rem" },
+          color: "#4A4A4A",
           textAlign: "center",
         }}
       >
@@ -65,14 +67,15 @@ const ThemeSelectionPage: React.FC = () => {
       {/* Input de seleção de tema */}
       <FormControl
         sx={{
-          minWidth: 300,
-          backgroundColor: "#FFFFFF", // Branco
+          minWidth: { xs: 220, sm: 300 },
+          backgroundColor: "#FFFFFF",
           borderRadius: 1,
-          border: `2px solid #FF69B4`, // Borda rosa claro
+          border: `2px solid #FF69B4`,
           "& .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#EFC9B6", // Borda rosa
+            borderColor: "#EFC9B6",
           },
         }}
+        size="small"
       >
         <InputLabel id="theme-select-label">Escolha o tema</InputLabel>
         <Select
@@ -81,12 +84,14 @@ const ThemeSelectionPage: React.FC = () => {
           onChange={handleChange}
           sx={{
             "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#EFC9B6", // Borda rosa
+              borderColor: "#EFC9B6",
             },
             "&:hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#EFC9B6", // Borda rosa no hover
+              borderColor: "#EFC9B6",
             },
+            fontSize: { xs: "0.95rem", sm: "1.05rem" },
           }}
+          label="Escolha o tema"
         >
           <MenuItem value="Tema 1">Tema 1</MenuItem>
           <MenuItem value="Tema 2">Tema 2</MenuItem>
@@ -100,18 +105,22 @@ const ThemeSelectionPage: React.FC = () => {
         onClick={handleNext}
         disabled={!selectedTheme}
         sx={{
-          backgroundColor: "#FF69B4", 
-          color: "#000000", // Preto
+          backgroundColor: "#FF69B4",
+          color: "#000000",
           "&:hover": {
-            backgroundColor: "#f1e3dd", 
+            backgroundColor: "#f1e3dd",
+            color: "#FF69B4",
           },
           "&:disabled": {
-            backgroundColor: "#FF69B4", 
-            color: "#A9A9A9", 
+            backgroundColor: "#FF69B4",
+            color: "#A9A9A9",
           },
-          paddingX: 4,
-          paddingY: 1.5,
+          px: { xs: 3, sm: 4 },
+          py: { xs: 1, sm: 1.5 },
           borderRadius: 2,
+          fontSize: { xs: "1rem", sm: "1.1rem" },
+          width: { xs: "100%", sm: "auto" },
+          maxWidth: 300,
         }}
       >
         Avançar
