@@ -179,7 +179,9 @@ type SelectedItemWithQuantity = {
 };
 
 const HomePage: React.FC = () => {
-  const [selectedItems, setSelectedItems] = useState<SelectedItemWithQuantity[]>([]);
+  const [selectedItems, setSelectedItems] = useState<
+    SelectedItemWithQuantity[]
+  >([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { selectedTheme } = useThemeContext();
@@ -267,11 +269,17 @@ const HomePage: React.FC = () => {
         position="static"
         sx={{
           backgroundColor: "#f1e3dd",
-          p: { xs: "8px 10px", sm: "10px 20px" },
+          px: { xs: 2, sm: 3 },
+          py: { xs: 1, sm: 2 },
         }}
         elevation={0}
       >
-        <Toolbar sx={{ justifyContent: "space-between", minHeight: { xs: 56, sm: 80 } }}>
+        <Toolbar
+          sx={{
+            justifyContent: "space-between",
+            minHeight: { xs: 56, sm: 80 },
+          }}
+        >
           <IconButton
             edge="start"
             color="secondary"
@@ -280,12 +288,14 @@ const HomePage: React.FC = () => {
           >
             <ArrowBackIosIcon sx={{ fontSize: { xs: 24, sm: 32 } }} />
           </IconButton>
-          <img
+
+          <Box
+            component="img"
             src="/images/logo.jpg"
             alt="Logo Pam Art"
-            style={{
-              width: window.innerWidth < 600 ? "48px" : "80px",
-              height: window.innerWidth < 600 ? "48px" : "80px",
+            sx={{
+              width: { xs: 60, sm: 80 },
+              height: { xs: 60, sm: 80 },
               borderRadius: "50%",
               objectFit: "cover",
             }}
@@ -294,98 +304,107 @@ const HomePage: React.FC = () => {
       </AppBar>
 
       {/* Tema escolhido em destaque */}
-      <Typography
-        variant="h5"
+      <Box
         sx={{
-          fontSize: { xs: "1.5rem", sm: "2.5rem" },
-          fontFamily: "Migra, serif",
-          fontWeight: "bold",
-          color: "#FF85C1",
-          textAlign: "center",
-          my: { xs: 1, sm: 2 },
+          maxWidth: 800,
+          mx: "auto",
+          px: { xs: 2, sm: 3 },
+          py: { xs: 2, sm: 4 },
         }}
       >
-        Tema escolhido: {selectedTheme ?? "Nenhum"}
-      </Typography>
-
-      <Typography
-        variant="subtitle1"
-        sx={{
-          fontSize: { xs: "1rem", sm: "1.2rem" },
-          color: "#4A4A4A",
-          textAlign: "center",
-          px: { xs: 1.5, sm: 0 },
-          maxWidth: "100%",
-        }}
-      >
-        Todos os valores exibidos já incluem a mão de obra da montagem e
-        decoração. Este é apenas um orçamento inicial. Assim que você escolher
-        os itens desejados, vamos te direcionar para o WhatsApp para alinharmos
-        os detalhes como data, local e ajustes personalizados. Estamos aqui para
-        tornar o seu momento ainda mais especial!
-      </Typography>
-
-      {/* Título geral */}
-      <Typography
-        variant="h2"
-        sx={{
-          fontFamily: "Migra, serif",
-          fontWeight: "bold",
-          color: "#353535",
-          textAlign: "center",
-          my: { xs: 2, sm: 4 },
-          fontSize: { xs: "1.6rem", sm: "2.7rem" },
-        }}
-        gutterBottom
-      >
-        Opções de Itens:
-      </Typography>
-
-      {/* Renderização dos grupos de itens */}
-      {groupedItems.map((group) => (
-        <div key={group.title}>
-          <Typography
-            variant="h4"
-            sx={{
-              mt: { xs: 3, sm: 4 },
-              mb: { xs: 2, sm: 4 },
-              color: "#FF69B4",
-              fontWeight: "bold",
-              fontFamily: "Migra, serif",
-              textAlign: "center",
-              fontSize: { xs: "1.1rem", sm: "2rem" },
-            }}
-          >
-            {group.title}
-          </Typography>
-          <ItemList
-            items={group.items}
-            selectedItems={selectedItems}
-            onRemove={handleRemoveItem}
-            onAdd={handleAddItem}
-          />
-        </div>
-      ))}
-
-      {/* Botão "Resumo do Pedido" */}
-      <Box sx={{ textAlign: "center", mt: 2 }}>
-        <Button
-          variant="contained"
-          onClick={handleOpenModal}
+        <Typography
+          variant="h5"
           sx={{
-            backgroundColor: "#FF69B4",
-            "&:hover": { backgroundColor: "#FF85C1" },
-            px: { xs: 2, sm: 4 },
-            py: { xs: 1, sm: 2 },
-            borderRadius: 3,
-            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-            fontSize: { xs: "1rem", sm: "1.1rem" },
-            width: { xs: "90%", sm: "auto" },
-            maxWidth: 400,
+            fontSize: { xs: "1.6rem", sm: "2.4rem" },
+            fontFamily: "Migra, serif",
+            fontWeight: 700,
+            color: "#FF85C1",
+            textAlign: "center",
+            mb: { xs: 1.5, sm: 2 },
           }}
         >
-          Resumo do Pedido
-        </Button>
+          Tema escolhido: {selectedTheme ?? "Nenhum"}
+        </Typography>
+
+        <Typography
+          variant="body1"
+          sx={{
+            fontSize: { xs: "1rem", sm: "1.125rem" },
+            lineHeight: 1.6,
+            color: "#555",
+            textAlign: "center",
+            mb: { xs: 3, sm: 4 },
+          }}
+        >
+          Todos os valores exibidos já incluem a mão de obra da montagem e
+          decoração. Este é apenas um orçamento inicial. Assim que você escolher
+          os itens desejados, vamos te direcionar para o WhatsApp para
+          alinharmos os detalhes como data, local e ajustes personalizados.
+          Estamos aqui para tornar o seu momento ainda mais especial!
+        </Typography>
+
+        <Typography
+          variant="h2"
+          sx={{
+            fontFamily: "Migra, serif",
+            fontWeight: "bold",
+            color: "#353535",
+            textAlign: "center",
+            fontSize: { xs: "1.8rem", sm: "2.7rem" },
+            mb: { xs: 2, sm: 3 },
+          }}
+          gutterBottom
+        >
+          Opções de Itens:
+        </Typography>
+      </Box>
+
+      {/* Renderização dos grupos de itens */}
+      <Box sx={{ px: { xs: 2, sm: 4 }, py: { xs: 1, sm: 2 } }}>
+        {groupedItems.map((group) => (
+          <Box key={group.title} sx={{ mb: { xs: 4, sm: 5 } }}>
+            <Typography
+              variant="h4"
+              sx={{
+                mb: { xs: 2, sm: 3 },
+                color: "#FF69B4",
+                fontWeight: "bold",
+                fontFamily: "Migra, serif",
+                textAlign: "center",
+                fontSize: { xs: "1.4rem", sm: "2rem" },
+              }}
+            >
+              {group.title}
+            </Typography>
+            <ItemList
+              items={group.items}
+              selectedItems={selectedItems}
+              onRemove={handleRemoveItem}
+              onAdd={handleAddItem}
+            />
+          </Box>
+        ))}
+
+        {/* Botão "Resumo do Pedido" */}
+        <Box sx={{ textAlign: "center", mt: { xs: 4, sm: 5 } }}>
+          <Button
+            variant="contained"
+            onClick={handleOpenModal}
+            sx={{
+              backgroundColor: "#FF69B4",
+              "&:hover": { backgroundColor: "#FF85C1" },
+              px: { xs: 3, sm: 5 },
+              py: { xs: 1.2, sm: 1.5 },
+              borderRadius: 3,
+              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+              fontSize: { xs: "1rem", sm: "1.125rem" },
+              width: { xs: "100%", sm: "auto" },
+              maxWidth: 300,
+            }}
+          >
+            Resumo do Pedido
+          </Button>
+        </Box>
       </Box>
 
       {/* Modal de Resumo */}
@@ -396,40 +415,81 @@ const HomePage: React.FC = () => {
         maxWidth="xs"
         PaperProps={{
           sx: {
-            borderRadius: 3,
-            m: { xs: 1, sm: 3 },
+            borderRadius: 4,
+            m: { xs: 1.5, sm: 4 },
             width: "100%",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
           },
         }}
       >
         <DialogTitle
           sx={{
-            backgroundColor: "#FFFFFF",
-            borderBottom: "1px solid #ccc",
+            backgroundColor: "#fff",
+            borderBottom: "1px solid #e0e0e0",
             p: { xs: 2, sm: 3 },
-            fontSize: { xs: "1.2rem", sm: "1.5rem" },
             textAlign: "center",
+            fontFamily: "Migra, serif",
+            fontWeight: "bold",
+            fontSize: { xs: "1.4rem", sm: "1.7rem" },
+            color: "#FF69B4",
           }}
         >
           Resumo do Pedido
         </DialogTitle>
 
-        <DialogContent sx={{ backgroundColor: "#FFFFFF", p: { xs: 2, sm: 3 } }}>
-          <Typography variant="subtitle1" sx={{ mb: 2, fontSize: { xs: "1rem", sm: "1.1rem" } }}>
+        <DialogContent
+          sx={{
+            backgroundColor: "#fff",
+            p: { xs: 2, sm: 3 },
+            maxHeight: "60vh",
+            overflowY: "auto",
+          }}
+        >
+          <Typography
+            variant="subtitle1"
+            sx={{
+              mb: 2,
+              fontSize: { xs: "1rem", sm: "1.125rem" },
+              fontWeight: 500,
+            }}
+          >
             <b>Tema escolhido:</b> {selectedTheme ?? "Nenhum"}
           </Typography>
-          <List>
+
+          <List dense>
             {selectedItems.map((selected) => (
-              <ListItem key={selected.item.id} sx={{ px: 0 }}>
+              <ListItem
+                key={selected.item.id}
+                sx={{
+                  px: 0,
+                  py: 1,
+                  borderBottom: "1px solid #f0f0f0",
+                }}
+              >
                 <ListItemText
-                  primary={`${selected.item.name}${selected.quantity > 1 ? ` x${selected.quantity}` : ""}`}
-                  secondary={`R$ ${(selected.item.price * selected.quantity).toFixed(2)}`}
-                  primaryTypographyProps={{ fontSize: { xs: "1rem", sm: "1.1rem" } }}
+                  primary={`${selected.item.name}${
+                    selected.quantity > 1 ? ` x${selected.quantity}` : ""
+                  }`}
+                  secondary={`R$ ${(
+                    selected.item.price * selected.quantity
+                  ).toFixed(2)}`}
+                  primaryTypographyProps={{
+                    fontSize: { xs: "1rem", sm: "1.1rem" },
+                    fontWeight: 500,
+                  }}
+                  secondaryTypographyProps={{
+                    color: "#757575",
+                    fontSize: { xs: "0.9rem", sm: "1rem" },
+                  }}
                 />
                 <ListItemSecondaryAction>
                   <MuiIconButton
                     edge="end"
                     onClick={() => handleRemoveItem(selected.item.id)}
+                    sx={{
+                      color: "#FF69B4",
+                      "&:hover": { color: "#E91E63" },
+                    }}
                   >
                     <CloseIcon />
                   </MuiIconButton>
@@ -437,9 +497,18 @@ const HomePage: React.FC = () => {
               </ListItem>
             ))}
           </List>
+
           <Typography
             variant="h6"
-            sx={{ mt: 2, textAlign: "center", fontSize: { xs: "1.1rem", sm: "1.3rem" } }}
+            sx={{
+              mt: 3,
+              fontSize: { xs: "1.2rem", sm: "1.4rem" },
+              textAlign: "center",
+              fontWeight: "bold",
+              color: "#4CAF50",
+              borderTop: "1px solid #eee",
+              pt: 2,
+            }}
           >
             Total: R$ {total.toFixed(2)}
           </Typography>
@@ -447,11 +516,11 @@ const HomePage: React.FC = () => {
 
         <DialogActions
           sx={{
-            backgroundColor: "#FFFFFF",
+            backgroundColor: "#fff",
             flexDirection: "column",
             alignItems: "center",
             gap: 2,
-            p: { xs: 1.5, sm: 2 },
+            p: { xs: 2, sm: 3 },
           }}
         >
           <Button
@@ -459,32 +528,34 @@ const HomePage: React.FC = () => {
             startIcon={<WhatsAppIcon />}
             onClick={handleWhatsApp}
             sx={{
-              backgroundColor: "#A5D6A7",
-              "&:hover": { backgroundColor: "#81C784" },
-              px: 2,
-              py: 1,
+              backgroundColor: "#4CAF50",
+              "&:hover": { backgroundColor: "#388E3C" },
+              px: 3,
+              py: 1.2,
               borderRadius: 3,
-              fontSize: { xs: "0.9rem", sm: "1rem" },
-              minWidth: 120,
+              fontSize: { xs: "0.95rem", sm: "1rem" },
               width: { xs: "100%", sm: "auto" },
-              textAlign: "center",
+              minWidth: 200,
+              boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
             }}
           >
             Enviar para WhatsApp
           </Button>
+
           <Button
             onClick={handleCloseModal}
             sx={{
-              color: "#FFFFFF",
-              backgroundColor: "#FF69B4",
+              color: "#FF69B4",
+              backgroundColor: "transparent",
+              border: "2px solid #FF69B4",
               "&:hover": {
-                backgroundColor: "#ffffff",
-                color: "#FF69B4",
+                backgroundColor: "#FF69B4",
+                color: "#fff",
               },
-              fontSize: { xs: "0.9rem", sm: "0.875rem" },
-              minWidth: 120,
+              fontSize: { xs: "0.9rem", sm: "0.95rem" },
               width: { xs: "100%", sm: "auto" },
-              border: `2px solid #FF69B4`,
+              minWidth: 200,
+              borderRadius: 3,
             }}
           >
             Fechar
