@@ -1,16 +1,3 @@
-src/
-├── components/
-│   └── ItemList.tsx        
-│   └── ThemeContext.tsx   
-│   └── items.ts            
-├── pages/
-│   ├── ThemeSelectionPage.tsx  
-│   └── HomePage.tsx        
-└── types/
-└── index.ts          
-
----
-
 ## 🚀 Key Features Implemented
 
 1. **Full-Bleed Hero & Section Snap:** Immersive layout configuration utilizing explicit vertical window boundaries (`100vh`) avoiding mid-scroll breaks or unstyled page gaps.
