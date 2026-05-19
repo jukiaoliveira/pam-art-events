@@ -257,49 +257,114 @@ const HomePage: React.FC = () => {
         open={isModalOpen}
         onClose={handleCloseModal}
         fullWidth
-        maxWidth="xs"
-        PaperProps={{ sx: { borderRadius: 0 } }}
+        maxWidth="sm"
+        PaperProps={{
+          sx: {
+            borderRadius: 0,
+            p: { xs: 3, md: 5 },
+            backgroundColor: "#fff",
+            border: "1px solid #000",
+          },
+        }}
       >
         <DialogTitle
           sx={{
             textAlign: "center",
-            fontWeight: 700,
+            fontFamily: "serif",
+            fontSize: "2rem",
+            fontWeight: 400,
+            color: "#1a1a1a",
+            pb: 1,
             borderBottom: "1px solid #eee",
           }}
         >
-          Resumo do Orçamento
+          Seu Cenário
         </DialogTitle>
-        <DialogContent sx={{ mt: 2 }}>
-          <Typography variant="subtitle2" gutterBottom>
-            Tema: <b>{selectedTheme}</b>
+
+        <DialogContent sx={{ mt: 3, p: 0 }}>
+          <Box sx={{ mb: 3, pb: 2, borderBottom: "1px dashed #ccc" }}>
+            <Typography
+              variant="overline"
+              sx={{ color: "#888", letterSpacing: 1, fontWeight: 700 }}
+            >
+              Estilo Escolhido
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                fontFamily: "serif",
+                fontStyle: "italic",
+                color: "#FF69B4",
+              }}
+            >
+              {selectedTheme || "Não definido"}
+            </Typography>
+          </Box>
+
+          <Typography
+            variant="overline"
+            sx={{
+              color: "#888",
+              letterSpacing: 1,
+              fontWeight: 700,
+              display: "block",
+              mb: 1,
+            }}
+          >
+            Itens Selecionados
           </Typography>
-          <List>
+
+          <List disablePadding>
             {selectedItems.map((s) => (
-              <ListItem key={s.item.id} sx={{ px: 0 }}>
+              <ListItem
+                key={s.item.id}
+                sx={{ px: 0, py: 1, borderBottom: "1px solid #f5f5f5" }}
+              >
                 <ListItemText
                   primary={s.item.name}
-                  secondary={`${s.quantity}x`}
+                  primaryTypographyProps={{
+                    sx: { fontWeight: 500, color: "#222" },
+                  }}
+                  secondary={`Quantidade: ${s.quantity}x`}
                 />
-                <Typography variant="body2">
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: 600, color: "#1a1a1a" }}
+                >
                   R$ {(s.item.price * s.quantity).toFixed(2)}
                 </Typography>
               </ListItem>
             ))}
           </List>
+
           <Box
             sx={{
-              borderTop: "2px solid #000",
-              pt: 2,
-              mt: 2,
+              backgroundColor: "#000",
+              color: "#fff",
+              p: 2.5,
+              mt: 4,
               textAlign: "center",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            <Typography variant="h6">
-              Total Estimado: R$ {total.toFixed(2)}
+            <Typography
+              variant="button"
+              sx={{ letterSpacing: 1, fontWeight: 600 }}
+            >
+              Total Estimado
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: 700, fontSize: "1.3rem" }}
+            >
+              R$ {total.toFixed(2)}
             </Typography>
           </Box>
         </DialogContent>
-        <DialogActions sx={{ flexDirection: "column", p: 3, gap: 2 }}>
+
+        <DialogActions sx={{ flexDirection: "column", p: 0, mt: 4, gap: 1.5 }}>
           <Button
             variant="contained"
             startIcon={<WhatsAppIcon />}
@@ -307,13 +372,29 @@ const HomePage: React.FC = () => {
             fullWidth
             sx={{
               backgroundColor: "#25D366",
-              "&:hover": { backgroundColor: "#128C7E" },
-              py: 1.5,
+              color: "#fff",
+              borderRadius: 0,
+              py: 2,
+              fontWeight: 600,
+              letterSpacing: 0.5,
+              boxShadow: "none",
+              "&:hover": { backgroundColor: "#128C7E", boxShadow: "none" },
             }}
           >
             Enviar para WhatsApp
           </Button>
-          <Button onClick={handleCloseModal} sx={{ color: "#888" }}>
+
+          <Button
+            onClick={handleCloseModal}
+            fullWidth
+            sx={{
+              color: "#888",
+              borderRadius: 0,
+              fontWeight: 600,
+              py: 1,
+              "&:hover": { color: "#000", backgroundColor: "transparent" },
+            }}
+          >
             Continuar Editando
           </Button>
         </DialogActions>
