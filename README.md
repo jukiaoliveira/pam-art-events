@@ -1,15 +1,13 @@
 src/
 ├── components/
-│   └── ItemList.tsx        # Optimized 1:1 Instagram-style catalog layout grid
-├── context/
-│   └── ThemeContext.tsx    # State management for cross-component selections
-├── data/
-│   └── items.ts            # Decoupled database mimicking production-ready structures
+│   └── ItemList.tsx        
+│   └── ThemeContext.tsx   
+│   └── items.ts            
 ├── pages/
-│   ├── ThemeSelectionPage.tsx  # Full-bleed landing page and preditive category selector
-│   └── HomePage.tsx        # Multi-step layout workflow with invoice-style review systems
+│   ├── ThemeSelectionPage.tsx  
+│   └── HomePage.tsx        
 └── types/
-└── index.ts            # Shared strict TypeScript interfaces
+└── index.ts          
 
 ---
 
@@ -31,3 +29,16 @@ To run this project locally, ensure you have **Node.js** installed, then execute
    git clone [https://github.com/your-username/pam-art-events.git](https://github.com/your-username/pam-art-events.git)
    cd pam-art-events
 2. Install all production and strict type dependencies:
+   ```bash
+   Install all production and strict type dependencies:
+3. In case of layout caching or TS linting artifacts, restart your IDE engine:
+   Open the command palette (Ctrl + Shift + P or Cmd + Shift + P)
+   Execute: TypeScript: Restart TS Server
+
+4. Launch the local development environment:
+   ```bash
+   npm run dev
+
+## 📝 License & Visuals
+Developed with a professional focus on Front-End Architecture & UI/UX Design.
+Inspired by modern premium digital commerce applications.
