@@ -238,8 +238,8 @@ const ThemeSelectionPage: React.FC = () => {
               lineHeight: 1.6,
             }}
           >
-            "Minha missão é transformar cada detalhe da sua festa em uma obra de
-            arte inesquecível."
+            Cada detalhe da sua celebração é pensado para transformar sonhos em
+            memórias inesquecíveis.
           </Typography>
 
           <Button
